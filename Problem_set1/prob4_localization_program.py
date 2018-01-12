@@ -80,16 +80,7 @@ def move(p_map_input, motion, p_move):
     x_move = motion[1]
     y_move = motion[0]
 
-    num_p_rows = len(p_map_input)
-    num_cols = len(p_map_input[0])
-
-    # Initialize the output matrix with zeros
     p_map_output = []
-    # for i in range(len(p_map_input)):
-    #     row = []
-    #     for k in range(len(p_map_input[i])):
-    #         row.append(0)
-    #     p_map_output.append(row)
 
     # Shift value vertically
     for row in p_map_input:
@@ -98,10 +89,8 @@ def move(p_map_input, motion, p_move):
             output_row.append(row[index - x_move] % len(row))
         p_map_output.append(output_row)
 
-    # q =  p[-U:] +  p[:-U]
-    # or
-    # for i in range(len(p)):
-    #     q.append(p[(i - U) % len(p)])
+    p_map_output = p_map_output[-y_move:] + p_map_output[:-y_move]
+
     return p_map_output
 
 

@@ -54,6 +54,24 @@ class LocalizeTest(unittest.TestCase):
         correct_answer = [[0,0,1,0,0]]
         self.assertEqual(answer, correct_answer)
 
+    def test_move_single_row_two_moves(self):
+        pmap = [[0,1,0,0,0]]
+        motion = [0,2]
+        p_move = 1.0
+        answer = move(pmap, motion, p_move)
+
+        correct_answer = [[0,0,0,1,0]]
+        self.assertEqual(answer, correct_answer)
+
+    def test_move_column(self):
+        pmap = [[0, 0], [1, 0], [0, 0], [0, 0], [0, 0]]
+        motion = [1,0]
+        p_move = 1.0
+        answer = move(pmap, motion, p_move)
+
+        correct_answer = [[0, 0], [0, 0], [1, 0], [0, 0], [0, 0]]
+        self.assertEqual(answer, correct_answer)
+
 
     def test_localize(self):
         pass

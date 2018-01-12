@@ -18,3 +18,11 @@ Write a short python script that will output a 2 dimensional grid cell whose ele
 To start off, we should attempt to break the problem down into smaller pieces.  The first piece is to try to get the robot to output correct values when it is simply staying in place, in a very simple 2D environment. We will also assume that it has perfect sensors. After which, we check later on if we are still getting correct results once we introduce imperfect sensors.
 
 After this, we try to get the robot to output correct values when it is moving. Once again, we assume perfect motion.  Once settled, we then proceed to introduce imperfect motion.
+
+#### The sense function
+The sense function basically takes several inputs.  A 2D world_map, the sensed measurement, the rate at which the sensor is correct, and optionally, a pre existing probability map.  If no preexisting probability map is provided, it constructs a probability map with uniform distribution.
+It's role is then to guess the probability of which tile it is currently on, given the sensed measurement input.  The current sense function only handles one measurement, but a list of measurements can iterated and fed to it one by one to get cumulative values for multiple measurements.
+
+#### The move function
+The move function's responsibility is to shift the provided probability map vertically and horizontally based on given inputs. Shifting to the right should shift the entire map to the right, and moving to upwards should shift the map upwards. Same as moving to the left, and moving downwards.
+Doing this in a single dimension has been demonstrated in class.  Adapting this onto the second dimension, we may have to loop through the array twice. First shift it horizontally, then shift it vertically. Or vice versa. We can also use array splicing, however, we are not sure if this will cause performance slow downs.

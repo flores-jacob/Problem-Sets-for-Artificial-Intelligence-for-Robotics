@@ -44,6 +44,38 @@
 #  [-1,0] - up
 
 
+def sense(world_map, measurement, sensor_right, p_map_input=None):
+    if not p_map_input:
+        # num_elements_world_map = len(world_map) * len(world_map[0])
+        # single_row = [1.0/num_elements_world_map for elem in range(len(world_map[0]))]
+        # probability_map = [single_row for row in range(len(world_map))]
+        probability_map = []
+        for i in range(len(world_map)):
+            row = []
+            for k in range(len(world_map[i])):
+                row.append(1.0/(len(world_map) * len(world_map[0])))
+            probability_map.append(row)
+    else:
+        probability_map = p_map_input
+
+    for row_index in range(len(world_map)):
+        current_row = world_map[row_index]
+        for tile_index in range(len(current_row)):
+            current_world_tile = current_row[tile_index]
+            hit = current_world_tile == measurement
+            current_pmap_tile = probability_map[row_index][tile_index]
+            prob_answer = current_pmap_tile * ((hit * sensor_right) + ((1 - hit) * (1 - sensor_right)))
+            probability_map[row_index][tile_index] = prob_answer
+
+    sum_probabilities = sum([sum(row) for row in probability_map])
+
+    for row_index in range(len(probability_map)):
+        for tile_index in range(len(probability_map[row_index])):
+            probability_map[row_index][tile_index] /= sum_probabilities
+
+    return probability_map
+
+
 def localize(colors, measurements, motions, sensor_right, p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
@@ -73,5 +105,5 @@ colors = [['R', 'G', 'G', 'R', 'R'],
           ['R', 'R', 'R', 'R', 'R']]
 measurements = ['G', 'G', 'G', 'G', 'G']
 motions = [[0, 0], [0, 1], [1, 0], [1, 0], [0, 1]]
-p = localize(colors, measurements, motions, sensor_right=0.7, p_move=0.8)
-show(p)  # displays your answer
+p_map = localize(colors, measurements, motions, sensor_right=0.7, p_move=0.8)
+show(p_map)  # displays your answer

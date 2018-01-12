@@ -25,7 +25,7 @@ It's role is then to guess the probability of which tile it is currently on, giv
 
 #### The move function
 The move function's responsibility is to shift the provided probability map vertically and horizontally based on given inputs. Shifting to the right should shift the entire map to the right, and moving to upwards should shift the map upwards. Same as moving to the left, and moving downwards.
-Doing this in a single dimension has been demonstrated in class.  Adapting this onto the second dimension, we may have to loop through the array twice. First shift it horizontally, then shift it vertically.
+Doing this in a single dimension has been demonstrated in class.  Adapting this onto the second dimension involves assigning the sum of a successful move and a failed move on to each and every single tile.
 
 #### The localize function
 This function brings the move and sense functions together.  For each pair of move and sense function elements, we call the move function first, then the sense function.  Once done with all the inputs, we send the return the resulting two dimensional probability map. 

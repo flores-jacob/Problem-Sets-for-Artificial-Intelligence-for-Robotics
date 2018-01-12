@@ -83,18 +83,37 @@ def move(p_map_input, motion, p_move):
     move_success = p_move
     move_fail = 1 - p_move
 
-    p_map_output = []
+    p_map_horizontally_shifted = []
 
     # Shift value horizontally
-    for row_index in range(len(p_map_input)):
-        output_row = []
-        for col_index in range(len(p_map_input[row_index])):
-            # combine the tile value of it successfully moving and failing to move
-            tile_value = move_success * p_map_input[(row_index - y_move) % len(p_map_input)][(col_index - x_move) % len(p_map_input[row_index])]
-            tile_value += move_fail * p_map_input[(row_index - y_move + 1) % len(p_map_input)][(col_index - x_move + 1) % len(p_map_input[row_index])]
+    if x_move:
+        for row_index in range(len(p_map_input)):
+            output_row = []
+            for col_index in range(len(p_map_input[row_index])):
+                # combine the tile value of it successfully moving and failing to move
+                tile_value = move_success * p_map_input[row_index][(col_index - x_move) % len(p_map_input[row_index])]
+                tile_value += move_fail * p_map_input[row_index][(col_index - x_move + 1) % len(p_map_input[row_index])]
 
-            output_row.append(tile_value)
-        p_map_output.append(output_row)
+                output_row.append(tile_value)
+            p_map_horizontally_shifted.append(output_row)
+    else:
+        p_map_horizontally_shifted = p_map_input
+
+    # Shift value vertically
+    if y_move:
+        p_map_output = []
+        for row_index in range(len(p_map_horizontally_shifted)):
+            output_row = []
+            for col_index in range(len(p_map_horizontally_shifted[row_index])):
+                tile_value = move_success * p_map_horizontally_shifted[(row_index - y_move) % len(p_map_horizontally_shifted)][col_index]
+                tile_value += move_fail * p_map_horizontally_shifted[(row_index - y_move + 1) % len(p_map_horizontally_shifted)][col_index]
+
+                output_row.append(tile_value)
+            p_map_output.append(output_row)
+    else:
+        p_map_output = p_map_horizontally_shifted
+
+
 
     return p_map_output
 

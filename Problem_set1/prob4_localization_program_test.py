@@ -1,6 +1,6 @@
 import unittest
 
-from prob4_localization_program import localize, show, sense
+from prob4_localization_program import localize, show, sense, move
 
 
 class LocalizeTest(unittest.TestCase):
@@ -44,6 +44,16 @@ class LocalizeTest(unittest.TestCase):
                 difference = answer[row_index][tile_index] - correct_answer[row_index][tile_index]
                 # make sure that the difference between the elements is negligible
                 self.assertLess(difference, abs(.000000001))
+
+    def test_move_single_row(self):
+        pmap = [[0,1,0,0,0]]
+        motion = [0,1]
+        p_move = 1.0
+        answer = move(pmap, motion, p_move)
+
+        correct_answer = [[0,0,1,0,0]]
+        self.assertEqual(answer, correct_answer)
+
 
     def test_localize(self):
         pass

@@ -53,7 +53,7 @@ def sense(world_map, measurement, sensor_right, p_map_input=None):
         for i in range(len(world_map)):
             row = []
             for k in range(len(world_map[i])):
-                row.append(1.0/(len(world_map) * len(world_map[0])))
+                row.append(1.0 / (len(world_map) * len(world_map[0])))
             probability_map.append(row)
     else:
         probability_map = p_map_input
@@ -74,6 +74,35 @@ def sense(world_map, measurement, sensor_right, p_map_input=None):
             probability_map[row_index][tile_index] /= sum_probabilities
 
     return probability_map
+
+
+def move(p_map_input, motion, p_move):
+    x_move = motion[1]
+    y_move = motion[0]
+
+    num_p_rows = len(p_map_input)
+    num_cols = len(p_map_input[0])
+
+    # Initialize the output matrix with zeros
+    p_map_output = []
+    # for i in range(len(p_map_input)):
+    #     row = []
+    #     for k in range(len(p_map_input[i])):
+    #         row.append(0)
+    #     p_map_output.append(row)
+
+    # Shift value vertically
+    for row in p_map_input:
+        output_row = []
+        for index in range(len(row)):
+            output_row.append(row[index - x_move] % len(row))
+        p_map_output.append(output_row)
+
+    # q =  p[-U:] +  p[:-U]
+    # or
+    # for i in range(len(p)):
+    #     q.append(p[(i - U) % len(p)])
+    return p_map_output
 
 
 def localize(colors, measurements, motions, sensor_right, p_move):

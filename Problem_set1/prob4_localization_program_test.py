@@ -2,8 +2,9 @@ import unittest
 
 from prob4_localization_program import localize, show, sense
 
+
 class LocalizeTest(unittest.TestCase):
-    def test_sense(self):
+    def test_sense_one_R(self):
         colors = [['G', 'G', 'G'],
                   ['G', 'R', 'G'],
                   ['G', 'G', 'G']]
@@ -14,6 +15,20 @@ class LocalizeTest(unittest.TestCase):
              [0.0, 1.0, 0.0],
              [0.0, 0.0, 0.0]])
         self.assertEqual(sense(colors, measurement, sensor_right), correct_answer)
+
+    def test_sense_two_R(self):
+        colors = [['G', 'G', 'G'],
+                  ['G', 'R', 'R'],
+                  ['G', 'G', 'G']]
+        measurement = 'R'
+        sensor_right = 1.0
+        correct_answer = (
+            [[0.0, 0.0, 0.0],
+             [0.0, 0.5, 0.5],
+             [0.0, 0.0, 0.0]])
+        self.assertEqual(sense(colors, measurement, sensor_right), correct_answer)
+
+
 
     def test_localize(self):
         pass

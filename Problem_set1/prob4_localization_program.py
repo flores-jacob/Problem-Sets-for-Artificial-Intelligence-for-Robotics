@@ -85,18 +85,16 @@ def move(p_map_input, motion, p_move):
 
     p_map_output = []
 
-    # Shift value vertically
-    for row in p_map_input:
+    # Shift value horizontally
+    for row_index in range(len(p_map_input)):
         output_row = []
-        for index in range(len(row)):
+        for col_index in range(len(p_map_input[row_index])):
             # combine the tile value of it successfully moving and failing to move
-            tile_value = move_success * row[(index - x_move) % len(row)]
-            tile_value += move_fail * row[(index - x_move + 1) % len(row)]
+            tile_value = move_success * p_map_input[(row_index - y_move) % len(p_map_input)][(col_index - x_move) % len(p_map_input[row_index])]
+            tile_value += move_fail * p_map_input[(row_index - y_move + 1) % len(p_map_input)][(col_index - x_move + 1) % len(p_map_input[row_index])]
 
             output_row.append(tile_value)
         p_map_output.append(output_row)
-
-    p_map_output = p_map_output[-y_move:] + p_map_output[:-y_move]
 
     return p_map_output
 

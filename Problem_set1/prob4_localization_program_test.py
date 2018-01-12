@@ -111,6 +111,23 @@ class LocalizeTest(unittest.TestCase):
                 self.assertLess(difference, abs(.000000001))
 
     def test_localize(self):
-        pass
+        colors = [['G', 'G', 'G'],
+                  ['G', 'R', 'R'],
+                  ['G', 'G', 'G']]
+        measurements = ['R', 'R']
+        motions = [[0, 0], [0, 1]]
+        sensor_right = 0.8
+        p_move = 0.5
+        answer = localize(colors, measurements, motions, sensor_right, p_move)
+        correct_answer = (
+            [[0.0289855072, 0.0289855072, 0.0289855072],
+             [0.0724637681, 0.2898550724, 0.4637681159],
+             [0.0289855072, 0.0289855072, 0.0289855072]])
+        for row_index in range(len(answer)):
+            for tile_index in range(len(answer[row_index])):
+                difference = answer[row_index][tile_index] - correct_answer[row_index][tile_index]
+                # make sure that the difference between the elements is negligible
+                self.assertLess(difference, abs(.000000001))
+
     def test_show(self):
         pass

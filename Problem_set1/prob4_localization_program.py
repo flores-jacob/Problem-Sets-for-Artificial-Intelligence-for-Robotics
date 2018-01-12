@@ -85,7 +85,7 @@ def move(p_map_input, motion, p_move):
 
     p_map_horizontally_shifted = []
 
-    # Shift value horizontally
+    # Shift value horizontally if x move is non zero
     if x_move:
         for row_index in range(len(p_map_input)):
             output_row = []
@@ -99,7 +99,7 @@ def move(p_map_input, motion, p_move):
     else:
         p_map_horizontally_shifted = p_map_input
 
-    # Shift value vertically
+    # Shift value vertically if y_move is non zero
     if y_move:
         p_map_output = []
         for row_index in range(len(p_map_horizontally_shifted)):
@@ -113,8 +113,6 @@ def move(p_map_input, motion, p_move):
     else:
         p_map_output = p_map_horizontally_shifted
 
-
-
     return p_map_output
 
 
@@ -124,6 +122,10 @@ def localize(colors, measurements, motions, sensor_right, p_move):
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
     # >>> Insert your code here <<<
+
+    for index in range(len(motions)):
+        p = move(p, motions[index], p_move)
+        p = sense(colors, measurements[index], sensor_right, p)
 
     return p
 

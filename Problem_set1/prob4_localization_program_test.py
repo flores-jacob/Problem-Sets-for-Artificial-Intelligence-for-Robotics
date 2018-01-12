@@ -54,6 +54,28 @@ class LocalizeTest(unittest.TestCase):
         correct_answer = [[0,0,1,0,0]]
         self.assertEqual(answer, correct_answer)
 
+    def test_move_single_row_negative(self):
+        pmap = [[0,1,0,0,0]]
+        motion = [0,-1]
+        p_move = 1.0
+        answer = move(pmap, motion, p_move)
+
+        correct_answer = [[1,0,0,0,0]]
+        self.assertEqual(answer, correct_answer)
+
+    def test_move_single_row_with_move_error(self):
+        pmap = [[0,1,0,0,0]]
+        motion = [0,1]
+        p_move = 0.8
+        answer = move(pmap, motion, p_move)
+
+        correct_answer = [[0,0.2,0.8,0,0]]
+        for row_index in range(len(answer)):
+            for tile_index in range(len(answer[row_index])):
+                difference = answer[row_index][tile_index] - correct_answer[row_index][tile_index]
+                # make sure that the difference between the elements is negligible
+                self.assertLess(difference, abs(.000000001))
+
     def test_move_single_row_two_moves(self):
         pmap = [[0,1,0,0,0]]
         motion = [0,2]
@@ -71,7 +93,6 @@ class LocalizeTest(unittest.TestCase):
 
         correct_answer = [[0, 0], [0, 0], [1, 0], [0, 0], [0, 0]]
         self.assertEqual(answer, correct_answer)
-
 
     def test_localize(self):
         pass

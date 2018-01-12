@@ -44,36 +44,12 @@
 #  [-1,0] - up
 
 
-def sense(p, Z):
-    q = []
-    for i in range(len(p)):
-        hit = (Z == world[i])
-        q.append(p[i] * (hit * pHit + (1 - hit) * pMiss))
-    s = sum(q)
-    for i in range(len(q)):
-        q[i] = q[i] / s
-    return q
-
-
-def move(p, U, sensor_right):
-    q = []
-    for i in range(len(p)):
-        # s = sensor_right * p[(i-U) % len(p)]
-        # s = s + (1 - sensor_right) * p[(i-U+1) % len(p)]
-        # q.append(s)
-        pass
-    return q
-
-
 def localize(colors, measurements, motions, sensor_right, p_move):
     # initializes p to a uniform distribution over a grid of the same dimensions as colors
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
     # >>> Insert your code here <<<
-    p = move(p, motions, sensor_right)
-    print(p)
-    p = sense(p, measurements)
 
     return p
 
@@ -97,6 +73,5 @@ colors = [['R', 'G', 'G', 'R', 'R'],
           ['R', 'R', 'R', 'R', 'R']]
 measurements = ['G', 'G', 'G', 'G', 'G']
 motions = [[0, 0], [0, 1], [1, 0], [1, 0], [0, 1]]
-# p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
-p = localize(colors, measurements, motions, sensor_right=0.7, p_move=0.7)
+p = localize(colors, measurements, motions, sensor_right=0.7, p_move=0.8)
 show(p)  # displays your answer

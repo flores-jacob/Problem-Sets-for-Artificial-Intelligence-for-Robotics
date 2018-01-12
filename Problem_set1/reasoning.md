@@ -14,4 +14,7 @@ Write a short python script that will output a 2 dimensional grid cell whose ele
 
 ### Solution reasoning
 
-To start off, we should attempt to break the problem down into smaller pieces.  The first piece is to try to get the robot to output correct values when it is simply stying in place, in a very simple 2D environment. Furthermore, we will first assume that it has perfect motion and perfect sensors. Once it can detect itself, we can then try to check if the answers we get are still correct if we make it move. Lastly, we mix in sensor and motion error rates one at a time. We should be finished with the exercise once we have succeeded in performing that.
+#### Overview
+To start off, we should attempt to break the problem down into smaller pieces.  The first piece is to try to get the robot to output correct values when it is simply staying in place, in a very simple 2D environment. We will also assume that it has perfect sensors. After which, we check later on if we are still getting correct results once we introduce imperfect sensors.
+
+After this, we try to get the robot to output correct values when it is moving. Once again, we assume perfect motion.  Once settled, we then proceed to introduce imperfect motion.
